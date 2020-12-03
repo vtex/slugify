@@ -1,0 +1,77 @@
+{
+  "name": "@vtex/slugify",
+  "version": "1.0.2",
+  "main": "dist/main.cjs.js",
+  "module": "dist/main.esm.js",
+  "types": "types/main.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "description": "VTEX slug utilities",
+  "author": "Christian Kaisermann <christian@kaisermann.me>",
+  "repository": "https://github.com/vtex/slugify",
+  "keywords": [
+    "slug"
+  ],
+  "engines": {
+    "node": ">= 11.15.0"
+  },
+  "scripts": {
+    "clean": "rm -rf dist/ types/",
+    "build": "rollup -c",
+    "build:types": "tsc -p src/ --emitDeclarationOnly",
+    "prebuild": "yarn clean",
+    "postbuild": "yarn build:types",
+    "dev": "rollup -c -w",
+    "test": "jest",
+    "lint": "eslint \"{src,test}/**/*.ts\"",
+    "format": "prettier --loglevel silent --write \"{src,test}/**/*.ts\"",
+    "prepublishOnly": "npm run test && npm run build"
+  },
+  "files": [
+    "dist/",
+    "types/"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.json": [
+      "prettier --write"
+    ]
+  },
+  "jest": {
+    "collectCoverage": true,
+    "testMatch": [
+      "<rootDir>/**/*.test.ts"
+    ],
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.ts"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    }
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.14",
+    "@vtex/prettier-config": "^0.3.5",
+    "eslint": "^7.9.0",
+    "eslint-config-vtex": "^12.8.11",
+    "husky": "^4.3.0",
+    "jest": "^26.4.2",
+    "lint-staged": "^10.4.0",
+    "prettier": "^2.1.2",
+    "rollup": "^2.27.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.27.2",
+    "ts-jest": "^26.4.0",
+    "typescript": "^4.0.3"
+  }
+}
